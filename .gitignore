@@ -6,3 +6,4 @@
 vendor/
 *.sqlite3
 /vault/
+config.json
