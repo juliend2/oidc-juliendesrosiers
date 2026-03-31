@@ -1,0 +1,11 @@
+op.local {
+  root * /home/julien/Workbench/oidc/op/public
+  php_fastcgi unix//run/php-fpm/php-fpm.sock
+  file_server
+}
+
+rp.local {
+  root * /home/julien/Workbench/oidc/rp/public
+  php_fastcgi unix//run/php-fpm/php-fpm.sock
+  file_server
+}

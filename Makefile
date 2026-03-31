@@ -1,0 +1,2 @@
+caddy:
+	sudo caddy run

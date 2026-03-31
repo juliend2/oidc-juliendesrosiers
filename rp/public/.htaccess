@@ -1,0 +1,10 @@
+RewriteEngine On
+RewriteBase /connect/
+
+# Si le fichier ou dossier existe (ex: css/style.css), on le sert
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Sinon, on envoie tout à index.php
+# On ne met pas de slash devant index.php pour rester relatif au dossier
+RewriteRule ^ index.php [L]

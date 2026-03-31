@@ -1,0 +1,8 @@
+.php_cs.cache
+.phpstan.cache
+.phpunit.cache
+.phpunit.result.cache
+.psalm.cache
+vendor/
+*.sqlite3
+/vault/

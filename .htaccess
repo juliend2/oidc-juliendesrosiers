@@ -1,0 +1,9 @@
+RewriteEngine On
+RewriteBase /connect/
+
+# 1. Empêcher l'accès direct aux dossiers internes (sécurité)
+RewriteRule ^rp/public/(.*)$ /connect/$1 [L,R=301]
+
+# 2. Rediriger tout vers rp/public/ de manière invisible
+RewriteCond %{REQUEST_URI} !^/connect/rp/public/
+RewriteRule ^(.*)$ rp/public/$1 [L]
