@@ -1,11 +1,11 @@
-op.local {
-  root * /home/julien/Workbench/oidc/op/public
-  php_fastcgi unix//run/php-fpm/php-fpm.sock
-  file_server
-}
+# op.local {
+#   root * /home/julien/Workbench/oidc-juliendesrosiers/op/public
+#   php_fastcgi unix//run/php-fpm/php-fpm.sock
+#   file_server
+# }
 
 rp.local {
-  root * /home/julien/Workbench/oidc/rp/public
+  root * /home/julien/Workbench/oidc-juliendesrosiers/rp/public
   php_fastcgi unix//run/php-fpm/php-fpm.sock
   file_server
 }

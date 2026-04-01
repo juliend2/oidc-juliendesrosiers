@@ -1,4 +1,5 @@
 <?php
+use App\Authenticator;
 
 /**
 +=============================================================================================================+
@@ -21,5 +22,15 @@ if (isset($_COOKIE['user']) && !empty($_COOKIE['user'])) {
     var_dump($_COOKIE['user']);
     die;
 } else {
+
+    $authenticator = new Authenticator([
+        'op_host' => $conf["issuer"],
+        'scope' => ['email', 'profile'],
+        'client_id' => CLIENT_ID,
+        'redirect_uri' => $conf["redirect_uri"],
+        // 'nonce' will be set automatically
+        // 'state' will be set automatically
+    ]);
+
     $authenticator->sendRequest($conf['authorization_endpoint']);
 }

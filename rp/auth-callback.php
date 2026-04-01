@@ -6,7 +6,7 @@ $oidc = new OpenIDConnectClient($conf['issuer'],
                                 $conf['client_id'],
                                 $conf['client_secret']);
 $oidc->providerConfigParam(['token_endpoint'=>$conf['token_endpoint']]);
-$oidc->addScope(['https://graph.microsoft.com/.default']);
+$oidc->addScope(['https://graph.microsoft.com/.default', 'oidc', 'email', 'profile']);
 
 // this assumes success (to validate check if the access_token property is there and a valid JWT) :
 $token_response = $oidc->requestClientCredentialsToken();
