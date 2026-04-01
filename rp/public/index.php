@@ -5,23 +5,6 @@ session_start();
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-use App\Authenticator;
-
-$conf = json_decode(file_get_contents(__DIR__."/../config.json"), true);
-
-// Configuration:
-define("CLIENT_ID", $conf["client_id"]);
-define("CLIENT_SECRET", $conf["client_secret"]);
-
-$authenticator = new Authenticator([
-    'op_host' => $conf["issuer"],
-    'scope' => ['email', 'profile'],
-    'client_id' => CLIENT_ID,
-    'redirect_uri' => $conf["redirect_uri"],
-    // 'nonce' will be set automatically
-    // 'state' will be set automatically
-]);
-
 
 // 1. GESTION DU CHEMIN (BASE PATH)
 $requestUri = $_SERVER['REQUEST_URI'];
@@ -46,7 +29,8 @@ $routes = [
     '/login'     => 'login.php',
     '/callback'  => 'callback.php',
     '/profile'   => 'profile.php',
-    '/auth-callback'   => 'auth-callback.php',
+    '/callback-google' => 'callback-google.php',
+    '/callback-ms'     => 'callback-ms.php',
     '/logout'    => function() {
         unset($_SESSION["USER"]);
         header("Location: https://op.local/logout", true, 302);

@@ -1,9 +1,5 @@
 <?php
 
-ini_set('display_errors', '1');
-ini_set('log_errors_max_len', '-1');
-
-
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 
@@ -20,14 +16,13 @@ $body = http_build_query($form);
 $tokenRequest = new Request(
   'POST',
   $conf['token_endpoint'], [
-    'Content-Type' => 'application/x-www-form-urlencoded',
-   'Authorization' => 'Basic '. base64_encode($conf['client_id'] .':'. $conf['client_secret']),
+     'Content-Type' => 'application/x-www-form-urlencoded',
+     'Authorization' => 'Basic '. base64_encode($conf['client_id'] .':'. $conf['client_secret']),
    ],
    $body
 );
 // echo 'body:<br>';
 // print_r($body);
-echo '<br></br>going to proceed with the request:<br>';
 try {
    $res = $client->send($tokenRequest);
 } catch (\Exception $e) {
@@ -42,25 +37,12 @@ try {
   die;
 }
 
-   echo 'here is the body<br>';
+   echo "here is the result's body<br>";
    echo $res->getBody();
 
-// $oidc = new OpenIDConnectClient($conf['issuer'],
-//                                 $conf['client_id'],
-//                                 $conf['client_secret']);
-// $oidc->providerConfigParam(['token_endpoint'=>$conf['token_endpoint']]);
-// // $oidc->addScope(['https://graph.microsoft.com/.default', 'oidc', 'email', 'profile']);
-
-// // this assumes success (to validate check if the access_token property is there and a valid JWT) :
-// $token_response = $oidc->requestClientCredentialsToken();
-
-// echo '<pre>';
-// var_dump($token_response);
-// echo '</pre>';
-// $clientCredentialsToken = $token_response->access_token;
-// $id_token =  $token_response->id_token;
-
 /**
+TODO:
+
 3.1.3.7.  ID Token Validation
 Clients MUST validate the ID Token in the Token Response in the following manner:
 1. If the ID Token is encrypted, decrypt it using the keys and algorithms that the

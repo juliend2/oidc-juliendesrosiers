@@ -23,13 +23,16 @@ if (isset($_COOKIE['user']) && !empty($_COOKIE['user'])) {
     die;
 } else {
 
+    $conf = json_decode(file_get_contents(__DIR__."/config.ms.json"), true);
+    if ($_GET['with'] === 'google') {
+        $conf = json_decode(file_get_contents(__DIR__."/config.google.json"), true);
+    }
+
     $authenticator = new Authenticator([
         'op_host' => $conf["issuer"],
         'scope' => ['email', 'profile'],
         'client_id' => CLIENT_ID,
         'redirect_uri' => $conf["redirect_uri"],
-        // 'nonce' will be set automatically
-        // 'state' will be set automatically
     ]);
 
     $authenticator->sendRequest($conf['authorization_endpoint']);

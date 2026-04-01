@@ -7,3 +7,5 @@ vendor/
 *.sqlite3
 /vault/
 config.json
+config.ms.json
+config.google.json
