@@ -1,20 +1,41 @@
 <?php
 
+ini_set('display_errors', '1');
+ini_set('log_errors_max_len', '-1');
+
+
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 
 $client = new Client();
 
-$tokenRequest = new Request('POST', $conf['token_endpoint'], [
+$form = [
+  'grant_type' => 'authorization_code',
+  'code' => $_GET['code'],
+  'redirect_uri' => urlencode($conf['redirect_uri']),
+];
+
+$body = http_build_query($form);
+
+$tokenRequest = new Request(
+  'POST',
+  $conf['token_endpoint'], [
+    'Content-Type' => 'application/x-www-form-urlencoded',
    'Authorization' => 'Basic'. base64_encode($conf['client_id'] .':'. $conf['client_secret']),
-   'form_params' => [
-      'grant_type' => 'authorization_code',
-      'code' => $_GET['code'],
-      'redirect_uri' => urlencode($conf['redirect_uri']),
-   ],
+   $body
 ]);
+try {
 $res = $client->send($tokenRequest);
 echo $res->getBody();
+} catch (\Exception $e) {
+  echo '<pre>';
+  if ($e->hasResponse()) {
+        // Voici le vrai message non tronqué
+        echo (string) $e->getResponse()->getBody();
+    }
+
+  die;
+}
 
 // $oidc = new OpenIDConnectClient($conf['issuer'],
 //                                 $conf['client_id'],
