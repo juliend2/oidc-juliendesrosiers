@@ -22,8 +22,9 @@ $tokenRequest = new Request(
   $conf['token_endpoint'], [
     'Content-Type' => 'application/x-www-form-urlencoded',
    'Authorization' => 'Basic'. base64_encode($conf['client_id'] .':'. $conf['client_secret']),
+   ],
    $body
-]);
+);
 echo 'body:<br>';
 print_r($body);
 echo '<br></br>going to proceed with the request:<br>';
