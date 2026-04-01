@@ -2,8 +2,6 @@
 
 use GuzzleHttp\Psr7\Request;
 
-$client = new Request();
-
 $tokenRequest = new Request('POST', $conf['token_endpoint'], [
    'Authorization' => 'Basic'. base64_encode($conf['client_id'] .':'. $conf['client_secret']),
    'form_params' => [
