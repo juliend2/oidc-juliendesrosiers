@@ -1,5 +1,9 @@
 <?php
+ini_set('display_errors', '1');
+ini_set('log_errors_max_len', '-1');
+
 use App\Authenticator;
+
 
 /**
 +=============================================================================================================+
@@ -31,7 +35,7 @@ if (isset($_COOKIE['user']) && !empty($_COOKIE['user'])) {
     $authenticator = new Authenticator([
         'op_host' => $conf["issuer"],
         'scope' => ['email', 'profile'],
-        'client_id' => CLIENT_ID,
+        'client_id' => $conf['client_id'],
         'redirect_uri' => $conf["redirect_uri"],
     ]);
 
