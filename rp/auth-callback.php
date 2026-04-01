@@ -1,20 +1,34 @@
 <?php
 
-use Jumbojett\OpenIDConnectClient;
+use GuzzleHttp\Psr7\Request;
 
-$oidc = new OpenIDConnectClient($conf['issuer'],
-                                $conf['client_id'],
-                                $conf['client_secret']);
-$oidc->providerConfigParam(['token_endpoint'=>$conf['token_endpoint']]);
-$oidc->addScope(['https://graph.microsoft.com/.default', 'oidc', 'email', 'profile']);
+$client = new Request();
 
-// this assumes success (to validate check if the access_token property is there and a valid JWT) :
-$token_response = $oidc->requestClientCredentialsToken();
-echo '<pre>';
-var_dump($token_response);
-echo '</pre>';
-$clientCredentialsToken = $token_response->access_token;
-$id_token =  $token_response->id_token;
+$tokenRequest = new Request('POST', $conf['token_endpoint'], [
+   'Authorization' => 'Basic'. base64_encode($conf['client_id'] .':'. $conf['client_secret']),
+   'form_params' => [
+      'grant_type' => 'authorization_code',
+      'code' => $_GET['code'],
+      'redirect_uri' => urlencode($conf['redirect_uri']),
+   ],
+]);
+$res = $client->send($tokenRequest);
+echo $res->getBody();
+
+// $oidc = new OpenIDConnectClient($conf['issuer'],
+//                                 $conf['client_id'],
+//                                 $conf['client_secret']);
+// $oidc->providerConfigParam(['token_endpoint'=>$conf['token_endpoint']]);
+// // $oidc->addScope(['https://graph.microsoft.com/.default', 'oidc', 'email', 'profile']);
+
+// // this assumes success (to validate check if the access_token property is there and a valid JWT) :
+// $token_response = $oidc->requestClientCredentialsToken();
+
+// echo '<pre>';
+// var_dump($token_response);
+// echo '</pre>';
+// $clientCredentialsToken = $token_response->access_token;
+// $id_token =  $token_response->id_token;
 
 /**
 3.1.3.7.  ID Token Validation
@@ -69,11 +83,11 @@ Clients MUST validate the ID Token in the Token Response in the following manner
 
 ?>
 recevoir le callback
-
+<!-- 
 <pre>
 <?php
-var_dump($_GET);
-var_dump($clientCredentialsToken);
-var_dump($id_token);
+// var_dump($_GET);
+// var_dump($clientCredentialsToken);
+// var_dump($id_token);
 ?>
-</pre>
+</pre> -->
