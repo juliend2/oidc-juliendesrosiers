@@ -21,7 +21,7 @@ $tokenRequest = new Request(
   'POST',
   $conf['token_endpoint'], [
     'Content-Type' => 'application/x-www-form-urlencoded',
-   'Authorization' => 'Basic'. base64_encode($conf['client_id'] .':'. $conf['client_secret']),
+   'Authorization' => 'Basic '. base64_encode($conf['client_id'] .':'. $conf['client_secret']),
    ],
    $body
 );
