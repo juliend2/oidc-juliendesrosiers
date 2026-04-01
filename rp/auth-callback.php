@@ -12,7 +12,7 @@ $client = new Client();
 $form = [
   'grant_type' => 'authorization_code',
   'code' => $_GET['code'],
-  'redirect_uri' => urlencode($conf['redirect_uri']),
+  'redirect_uri' => $conf['redirect_uri'],
 ];
 
 $body = http_build_query($form);
