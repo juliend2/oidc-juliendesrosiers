@@ -24,15 +24,21 @@ $tokenRequest = new Request(
    'Authorization' => 'Basic'. base64_encode($conf['client_id'] .':'. $conf['client_secret']),
    $body
 ]);
+echo 'body:<br>';
+print_r($body);
+echo '<br></br>going to proceed with the request:<br>';
 try {
-$res = $client->send($tokenRequest);
-echo $res->getBody();
+   $res = $client->send($tokenRequest);
+   echo 'here is the body<br>';
+   echo $res->getBody();
 } catch (\Exception $e) {
-  echo '<pre>';
+  echo 'error:<br>';
+  var_dump($e);
+  echo '<br>';
+  echo 'here is the error message:<pre>';
   if ($e->hasResponse()) {
-        // Voici le vrai message non tronqué
-        echo (string) $e->getResponse()->getBody();
-    }
+   echo (string) $e->getResponse()->getBody();
+  }
 
   die;
 }
