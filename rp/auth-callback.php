@@ -25,13 +25,11 @@ $tokenRequest = new Request(
    ],
    $body
 );
-echo 'body:<br>';
-print_r($body);
+// echo 'body:<br>';
+// print_r($body);
 echo '<br></br>going to proceed with the request:<br>';
 try {
    $res = $client->send($tokenRequest);
-   echo 'here is the body<br>';
-   echo $res->getBody();
 } catch (\Exception $e) {
   echo 'error:<br>';
   var_dump($e);
@@ -43,6 +41,9 @@ try {
 
   die;
 }
+
+   echo 'here is the body<br>';
+   echo $res->getBody();
 
 // $oidc = new OpenIDConnectClient($conf['issuer'],
 //                                 $conf['client_id'],
@@ -109,14 +110,3 @@ Clients MUST validate the ID Token in the Token Response in the following manner
     Claim value and request re-authentication if it determines too much time has
     elapsed since the last End-User authentication.
 */
-
-?>
-recevoir le callback
-<!-- 
-<pre>
-<?php
-// var_dump($_GET);
-// var_dump($clientCredentialsToken);
-// var_dump($id_token);
-?>
-</pre> -->
